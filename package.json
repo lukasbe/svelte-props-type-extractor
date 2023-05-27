@@ -7,6 +7,7 @@
   "scripts": {
     "test": "vitest"
   },
+  "files": ["index.js"],
   "keywords": [
     "svelte",
     "typescript",

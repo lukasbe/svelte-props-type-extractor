@@ -1,22 +1,21 @@
 {
-  "name": "svelte-props-type-extractor",
-  "version": "1.0.0",
+  "name": "@lukasbe/svelte-props-type-extractor",
+  "version": "0.0.1",
   "description": "Extracts Props and Types from Svelte 3 Files",
   "main": "index.js",
   "type": "module",
   "scripts": {
     "test": "vitest"
   },
-  "files": ["index.js"],
+  "files": [
+    "index.js"
+  ],
   "keywords": [
     "svelte",
     "typescript",
     "props extractor"
   ],
-  "author": {
-    "name": "lukasbe",
-    "url": "https://github.com/lukasbe"
-  },
+  "author": "lukasbe (https://github.com/lukasbe)",
   "license": "Apache-2.0",
   "devDependencies": {
     "eslint": "^8.41.0",
@@ -26,5 +25,13 @@
   "dependencies": {
     "glob": "^10.2.6",
     "ts-morph": "^18.0.0"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lukasbe/svelte-props-type-extractor.git"
+  },
+  "bugs": {
+    "url": "https://github.com/lukasbe/svelte-props-type-extractor/issues"
+  },
+  "homepage": "https://github.com/lukasbe/svelte-props-type-extractor#readme"
 }

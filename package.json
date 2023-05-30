@@ -1,6 +1,6 @@
 {
   "name": "@lukasbe/svelte-props-type-extractor",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Extracts Props and Types from Svelte 3 Files",
   "main": "index.js",
   "type": "module",

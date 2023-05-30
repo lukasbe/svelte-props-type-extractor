@@ -1,8 +1,6 @@
 //@ts-check
 import {readFile} from 'fs/promises';
 import { Project } from "ts-morph";
-import {SyntaxKind} from 'typescript';
-import glob from 'glob';
 const project = new Project();
 
 /**

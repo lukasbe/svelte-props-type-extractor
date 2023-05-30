@@ -7,7 +7,7 @@
   "scripts": {
     "test": "vitest",
     "types": "tsc",
-    "prepublish": "npm types"
+    "prepublish": "npm run types"
   },
   "files": [
     "index.js",

@@ -6,7 +6,8 @@
   "type": "module",
   "scripts": {
     "test": "vitest",
-    "prepublish": "npx -p typescript tsc index.js --declaration --allowJs --emitDeclarationOnly"
+    "types": "tsc",
+    "prepublish": "npm types"
   },
   "files": [
     "index.js",
@@ -20,6 +21,7 @@
   "author": "lukasbe (https://github.com/lukasbe)",
   "license": "Apache-2.0",
   "devDependencies": {
+    "@types/node": "^20.2.5",
     "eslint": "^8.41.0",
     "typescript": "^5.0.4",
     "vitest": "^0.31.1"

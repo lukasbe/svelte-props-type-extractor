@@ -5,10 +5,12 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "test": "vitest"
+    "test": "vitest",
+    "prepublish": "npx -p typescript tsc index.js --declaration --allowJs --emitDeclarationOnly"
   },
   "files": [
-    "index.js"
+    "index.js",
+    "index.d.ts"
   ],
   "keywords": [
     "svelte",

@@ -1,6 +1,7 @@
 //@ts-check
 import {readFile} from 'fs/promises';
 import { Project } from "ts-morph";
+import {SyntaxKind} from 'typescript';
 import glob from 'glob';
 const project = new Project();
 
@@ -50,9 +51,11 @@ const getVariableTypes = (lines, options) => {
     const variables = [];
     const svelteSource = project.createSourceFile('tmp.ts', lines.join(''), {overwrite: true});
     svelteSource.getVariableDeclarations().forEach(declaration => {
+        if(!declaration.getExportKeyword()) return;
         if(options.exclude?.includes("VARIABLES") && !declaration.getType().isAnonymous()) return;
         if(options.exclude?.includes("UNIONS") && declaration.getType().isUnion()) return;
         if(options.exclude?.includes("FUNCTIONS") && declaration.getType().isAnonymous()) return;
+        
         const name = declaration.getName();
         let type = declaration.getType().getText();
         if(!declaration.getType().isAnonymous()){

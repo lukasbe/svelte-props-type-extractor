@@ -1,5 +1,6 @@
 //@ts-check
 import { readFile } from 'fs/promises';
+import { VariableDeclarationKind } from 'ts-morph';
 import { Project } from "ts-morph";
 const project = new Project();
 
@@ -50,30 +51,33 @@ const getVariableTypes = (lines, options) => {
      * @type {prop[]}
      */
     const variables = [];
-    const svelteSource = project.createSourceFile('tmp.ts', lines.join(''), { overwrite: true });
-    svelteSource.getVariableDeclarations().forEach(declaration => {
-        if (!declaration.getExportKeyword()) return;
-        if (options.exclude?.includes("VARIABLES") && !declaration.getType().isAnonymous()) return;
-        if (options.exclude?.includes("UNIONS") && declaration.getType().isUnion()) return;
-        if (options.exclude?.includes("FUNCTIONS") && declaration.getType().isAnonymous()) return;
+    const svelteSource = project.createSourceFile('tmp.ts', lines.join('\n'), { overwrite: true });
 
-        const name = declaration.getName();
-        let type = declaration.getType().getText();
-        if (!declaration.getType().isAnonymous()) {
-            type = type.toUpperCase();
-        }
-        /**
-        * @type {prop}
-        */
-        let variable = {
-            name,
-            type,
-        };
-        if (declaration.getType().isUnion()) {
-            const values = declaration.getType().getUnionTypes().map(u => u.getText().replace(/"/g, ''));
-            variable = { ...variable, type: 'UNION', values };
-        }
-        variables.push(variable);
+    svelteSource.getVariableStatements().filter(v => v.hasExportKeyword() && v.getDeclarationKind() == VariableDeclarationKind.Let).forEach(v => {
+        const declarations = v.getDeclarations();
+        declarations.forEach(declaration => {
+            if (options.exclude?.includes("VARIABLES") && !declaration.getType().isAnonymous()) return;
+            if (options.exclude?.includes("UNIONS") && declaration.getType().isUnion()) return;
+            if (options.exclude?.includes("FUNCTIONS") && declaration.getType().isAnonymous()) return;
+
+            const name = declaration.getName();
+            let type = declaration.getType().getText();
+            if (!declaration.getType().isAnonymous()) {
+                type = type.toUpperCase();
+            }
+            /**
+            * @type {prop}
+            */
+            let variable = {
+                name,
+                type,
+            };
+            if (declaration.getType().isUnion()) {
+                const values = declaration.getType().getUnionTypes().map(u => u.getText().replace(/"/g, ''));
+                variable = { ...variable, type: 'UNION', values };
+            }
+            variables.push(variable);
+        });
     });
     return variables;
 }

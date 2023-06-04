@@ -16,41 +16,14 @@ describe('script tag extraction', () => {
                 alert('button clicked');
             };
 
-        </script>
-    
-    
-        <button
-        class:small={size == 'SMALL'}
-        class:large={size == 'LARGE'}
-        on:click={clickFunction}
-        >{label}</button>
-    
-        <style>
-            button{
-                background-color: orange;
-                padding: .5rem;
-                border: .1rem solid black;
-                border-radius: 3rem;
-                font-size: 1rem;
-            }
-        
-            button.small{
-                font-size: .8rem;
-            }
-        
-            button.large{
-                font-size: 2rem;
-            }
-        
-        </style>`)))
-                .mockReturnValueOnce(Promise.resolve(Buffer.from(`
-        <script lang="ts">
+            //some comment
 
-            export let label: string;
-            export let size: 'SMALL' | 'MEDIUM' | 'LARGE' = 'MEDIUM';
-            export let clickFunction = () => {
-                alert('button clicked');
-            };
+            /* some other
+            * multiline comment
+            */
+            export let fontsize: 'SMALL' | 'MEDIUM' | 'LARGE' = 'MEDIUM';
+            export let icontype: string | undefined = undefined;
+            export let disabled: boolean;
 
         </script>
     
@@ -124,6 +97,41 @@ describe('script tag extraction', () => {
                 alert('button clicked');
             };
 
+        </script>
+    
+    
+        <button
+        class:small={size == 'SMALL'}
+        class:large={size == 'LARGE'}
+        on:click={clickFunction}
+        >{label}</button>
+    
+        <style>
+            button{
+                background-color: orange;
+                padding: .5rem;
+                border: .1rem solid black;
+                border-radius: 3rem;
+                font-size: 1rem;
+            }
+        
+            button.small{
+                font-size: .8rem;
+            }
+        
+            button.large{
+                font-size: 2rem;
+            }
+        
+        </style>`)))
+                .mockReturnValueOnce(Promise.resolve(Buffer.from(`
+        <script lang="ts">
+
+            export let label: string;
+            export let size: 'SMALL' | 'MEDIUM' | 'LARGE' = 'MEDIUM';
+            export let clickFunction = () => {
+                alert('button clicked');
+            };
         </script>
     
     
@@ -204,7 +212,21 @@ describe('script tag extraction', () => {
             {
                 name: 'clickFunction',
                 type: '() => void',
-            }
+            },
+            {
+                name: 'fontsize',
+                type: 'UNION',
+                values: ['SMALL', 'MEDIUM', 'LARGE']
+            },
+            {
+                name: 'icontype',
+                type: 'STRING',
+            },
+            {
+                name: 'disabled',
+                type: 'UNION',
+                values: ['false', 'true']
+            },
         ])
     });
     it('extract script lines from svelte file - exclude functions', async () => {

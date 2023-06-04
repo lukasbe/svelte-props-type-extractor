@@ -4,8 +4,5 @@ export function extractTypesFromFile(path: string, options?: {
 export type prop = {
     name: string;
     type: string;
-    /**
-     * - optional
-     */
-    values: Array<string | number>;
+    values?: (string | number)[] | undefined;
 };

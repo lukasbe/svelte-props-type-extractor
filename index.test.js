@@ -207,7 +207,8 @@ describe('script tag extraction', () => {
             {
                 name: 'size',
                 type: 'UNION',
-                values: ['SMALL', 'MEDIUM', 'LARGE']
+                values: ['SMALL', 'MEDIUM', 'LARGE'],
+                assignedValue: 'MEDIUM'
             },
             {
                 name: 'clickFunction',
@@ -216,7 +217,8 @@ describe('script tag extraction', () => {
             {
                 name: 'fontsize',
                 type: 'UNION',
-                values: ['SMALL', 'MEDIUM', 'LARGE']
+                values: ['SMALL', 'MEDIUM', 'LARGE'],
+                assignedValue: 'MEDIUM'
             },
             {
                 name: 'icontype',
@@ -238,7 +240,8 @@ describe('script tag extraction', () => {
             {
                 name: 'size',
                 type: 'UNION',
-                values: ['SMALL', 'MEDIUM', 'LARGE']
+                values: ['SMALL', 'MEDIUM', 'LARGE'],
+                assignedValue: 'MEDIUM'
             }
         ])
     });
@@ -271,7 +274,8 @@ describe('script tag extraction', () => {
             {
                 name: 'size',
                 type: 'UNION',
-                values: ['SMALL', 'MEDIUM', 'LARGE']
+                values: ['SMALL', 'MEDIUM', 'LARGE'],
+                assignedValue: 'MEDIUM'
             },
             {
                 name: 'clickFunction',

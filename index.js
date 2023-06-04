@@ -2,6 +2,7 @@
 import { readFile } from 'fs/promises';
 import { VariableDeclarationKind } from 'ts-morph';
 import { Project } from "ts-morph";
+import { SyntaxKind } from 'typescript'
 const project = new Project();
 
 /**
@@ -38,6 +39,7 @@ const extractScriptTag = (content) => {
  * @prop {string} name
  * @prop {string} type
  * @prop {Array<String|Number>} [values]
+ * @prop {string | number | boolean} [assignedValue]
  */
 
 /**
@@ -76,6 +78,13 @@ const getVariableTypes = (lines, options) => {
                 const values = declaration.getType().getUnionTypes().map(u => u.getText().replace(/"/g, ''));
                 variable = { ...variable, type: 'UNION', values };
             }
+            const stringLiterals = declaration.getChildrenOfKind(SyntaxKind.StringLiteral);
+            const numericLiterals = declaration.getChildrenOfKind(SyntaxKind.NumericLiteral);
+            if(stringLiterals.length) variable.assignedValue = stringLiterals[0].getLiteralValue();
+            else if(numericLiterals.length) variable.assignedValue = numericLiterals[0].getLiteralValue();
+            else if(declaration.getChildrenOfKind(SyntaxKind.TrueKeyword).length) variable.assignedValue = true;
+            else if(declaration.getChildrenOfKind(SyntaxKind.FalseKeyword).length) variable.assignedValue = false;
+
             variables.push(variable);
         });
     });

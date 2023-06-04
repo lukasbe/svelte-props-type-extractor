@@ -5,4 +5,5 @@ export type prop = {
     name: string;
     type: string;
     values?: (string | number)[] | undefined;
+    assignedValue?: string | number | boolean | undefined;
 };

@@ -23,10 +23,10 @@
   "devDependencies": {
     "@types/node": "^20.2.5",
     "eslint": "^8.41.0",
-    "typescript": "^5.0.4",
     "vitest": "^0.31.1"
   },
   "dependencies": {
+    "typescript": "^5.0.4",
     "glob": "^10.2.6",
     "ts-morph": "^18.0.0"
   },
